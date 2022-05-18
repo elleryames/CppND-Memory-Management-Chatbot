@@ -5,6 +5,7 @@
 
 class ChatLogic; // forward declaration
 
+
 // middle part of the window containing the dialog between user and chatbot
 class ChatBotPanelDialog : public wxScrolledWindow
 {
@@ -39,7 +40,8 @@ public:
     void PrintChatbotResponse(std::string response);
 
     DECLARE_EVENT_TABLE()
-};
+}; // ChatBotPanelDialog
+
 
 // dialog item shown in ChatBotPanelDialog
 class ChatBotPanelDialogItem : public wxPanel
@@ -52,7 +54,8 @@ private:
 public:
     // constructor / destructor
     ChatBotPanelDialogItem(wxPanel *parent, wxString text, bool isFromUser);
-};
+}; // ChatBotPanelDialogItem
+
 
 // frame containing all control elements
 class ChatBotFrame : public wxFrame
@@ -68,7 +71,8 @@ private:
 public:
     // constructor / desctructor
     ChatBotFrame(const wxString &title);
-};
+}; // ChatBotFrame
+
 
 // control panel for background image display
 class ChatBotFrameImagePanel : public wxPanel
@@ -86,7 +90,8 @@ public:
     void render(wxDC &dc);
 
     DECLARE_EVENT_TABLE()
-};
+}; // ChatBotFrameImagePanel
+
 
 // wxWidgets app that hides main()
 class ChatBotApp : public wxApp
@@ -94,6 +99,7 @@ class ChatBotApp : public wxApp
 public:
     // events
     virtual bool OnInit();
-};
+}; // ChatBotApp
+
 
 #endif /* CHATGUI_H_ */
