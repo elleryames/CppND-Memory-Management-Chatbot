@@ -18,6 +18,7 @@ private:
     //// STUDENT CODE
     ////
 
+    // make unique_ptr to ensure exclusive ownership.
     std::unique_ptr<ChatLogic> _chatLogic;
 
     ////
