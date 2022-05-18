@@ -100,6 +100,11 @@ void ChatBotFrameImagePanel::render(wxDC &dc)
     dc.DrawBitmap(_image, 0, 0, false);
 }
 
+//////////////////////////////////////
+//                                  //
+//      CHATBOTPANELDIALOG          //
+//                                  // 
+//////////////////////////////////////
 BEGIN_EVENT_TABLE(ChatBotPanelDialog, wxPanel)
 EVT_PAINT(ChatBotPanelDialog::paintEvent) // catch paint events
 END_EVENT_TABLE()
@@ -190,6 +195,10 @@ void ChatBotPanelDialog::render(wxDC &dc)
     _image = wxBitmap(imgSmall);
     dc.DrawBitmap(_image, 0, 0, false);
 }
+
+//////////////////////////////////////
+//////////////////////////////////////
+
 
 ChatBotPanelDialogItem::ChatBotPanelDialogItem(wxPanel *parent, wxString text, bool isFromUser)
     : wxPanel(parent, -1, wxPoint(-1, -1), wxSize(-1, -1), wxBORDER_NONE)
