@@ -11,7 +11,8 @@ GraphNode::~GraphNode()
     //// STUDENT CODE
     ////
 
-    delete _chatBot; 
+    // Note: _chatBot is allocated and deleted within chatlogic ctor/dtor.
+    // delete _chatBot; 
 
     ////
     //// EOF STUDENT CODE
