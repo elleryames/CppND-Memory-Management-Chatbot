@@ -29,7 +29,7 @@ void GraphNode::AddEdgeToParentNode(GraphEdge *edge)
 }
 
 // Task 4: implement move semantics that allow node to own its child edges.
-void GraphNode::AddEdgeToChildNode(std::unique_ptr<GraphEdge> edge)
+void GraphNode::AddEdgeToChildNode(std::unique_ptr<GraphEdge>&& edge)
 {
     _childEdges.push_back(std::move(edge));
 }
@@ -45,7 +45,7 @@ void GraphNode::MoveChatbotHere(ChatBot chatbot)
 
 void GraphNode::MoveChatbotToNewNode(GraphNode* newNode)
 {
-    newNode->MoveChatbotHere(std::move(*_chatBot));
+    newNode->MoveChatbotHere(std::move(*_chatBot)); // Task 5
     _chatBot = nullptr; // invalidate pointer at source
 }
 ////
