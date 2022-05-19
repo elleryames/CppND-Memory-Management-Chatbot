@@ -173,14 +173,15 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                             std::unique_ptr<GraphEdge> edge = std::make_unique<GraphEdge>(id);        // Task 4
                             edge->SetChildNode(childNode->get());   // Task 3
                             edge->SetParentNode(parentNode->get()); // Task 3
-                            _edges.push_back(std::move(edge));      // Task 4: avoid copying by using move semantics
+                            _edges.push_back(edge.get());           // Task 4:
 
                             // find all keywords for current node
                             AddAllTokensToElement("KEYWORD", tokens, *edge);
 
                             // store reference in child node and parent node
                             (*childNode)->AddEdgeToParentNode(edge.get()); // Task 4
-                            (*parentNode)->AddEdgeToChildNode(edge.get()); // Task 4: FIXME: Should this be a move, since the node is to own its own childEdges?
+                            // Task 4: make parent node owner of edge instance
+                            (*parentNode)->AddEdgeToChildNode(std::move(edge)); 
                         }
 
                         ////
