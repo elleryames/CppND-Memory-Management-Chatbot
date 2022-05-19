@@ -43,10 +43,11 @@ ChatLogic::~ChatLogic()
     // Task 3: Not needed, since cleanup will be done by smart pointer
 
     // delete all edges
-    for (auto it = std::begin(_edges); it != std::end(_edges); ++it)
-    {
-        delete *it;
-    }
+    // for (auto it = std::begin(_edges); it != std::end(_edges); ++it)
+    // {
+    //     delete *it;
+    // }
+    // Task 4: Not needed, since cleanup will be done by smart pointers
 
     ////
     //// EOF STUDENT CODE
@@ -128,7 +129,6 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                         ////
 
                         // check if node with this ID exists already
-                        // auto newNode = std::find_if(_nodes.begin(), _nodes.end(), [&id](const std::unique_ptr<GraphNode>& node) { return node->GetID() == id; }); // Task 3
                         auto newNode = std::find_if(_nodes.begin(), _nodes.end(), [&id](const auto& node) { return node->GetID() == id; }); // Task 3
 
                         // create new element if ID does not yet exist
@@ -143,7 +143,7 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
 
                         ////
                         //// EOF STUDENT CODE
-                    }
+                    } // eof node-based processing
 
                     // edge-based processing
                     if (type->second == "EDGE")
@@ -170,28 +170,28 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                                 ); // Task 3
 
                             // create new edge
-                            GraphEdge *edge = new GraphEdge(id);
+                            std::unique_ptr<GraphEdge> edge = std::make_unique<GraphEdge>(id);        // Task 4
                             edge->SetChildNode(childNode->get());   // Task 3
                             edge->SetParentNode(parentNode->get()); // Task 3
-                            _edges.push_back(edge);
+                            _edges.push_back(std::move(edge));      // Task 4: avoid copying by using move semantics
 
                             // find all keywords for current node
                             AddAllTokensToElement("KEYWORD", tokens, *edge);
 
                             // store reference in child node and parent node
-                            (*childNode)->AddEdgeToParentNode(edge);
-                            (*parentNode)->AddEdgeToChildNode(edge);
+                            (*childNode)->AddEdgeToParentNode(edge.get()); // Task 4
+                            (*parentNode)->AddEdgeToChildNode(edge.get()); // Task 4: FIXME: Should this be a move, since the node is to own its own childEdges?
                         }
 
                         ////
                         //// EOF STUDENT CODE
-                    }
+                    } // eof edge-based processing.
                 }
                 else
                 {
                     std::cout << "Error: ID missing. Line is ignored!" << std::endl;
                 }
-            }
+            } // eof process current lines
         } // eof loop over all lines in the file
 
         file.close();
