@@ -51,9 +51,10 @@ ChatBot::ChatBot(const ChatBot& source)
     std::cout << "ChatBot Copy Constructor" << std::endl;
 
     // exclusive ownership 
-    *_chatLogic = *source._chatLogic;
-    *_rootNode  = *source._rootNode;
+    _image = new wxBitmap();
     *_image     = *source._image;
+    _chatLogic = source._chatLogic;
+    _rootNode  = source._rootNode;
 }
 
 // Copy assignment operator 
@@ -66,8 +67,8 @@ ChatBot& ChatBot::operator=(const ChatBot& source)
     }
     delete _image;
     *_image     = *source._image;
-    *_chatLogic = *source._chatLogic;
-    *_rootNode  = *source._rootNode;
+    _chatLogic = source._chatLogic;
+    _rootNode  = source._rootNode;
     return *this;
 }
 

@@ -128,7 +128,8 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                         ////
 
                         // check if node with this ID exists already
-                        auto newNode = std::find_if(_nodes.begin(), _nodes.end(), [&id](const std::unique_ptr<GraphNode>& node) { return node->GetID() == id; }); // Task 3
+                        // auto newNode = std::find_if(_nodes.begin(), _nodes.end(), [&id](const std::unique_ptr<GraphNode>& node) { return node->GetID() == id; }); // Task 3
+                        auto newNode = std::find_if(_nodes.begin(), _nodes.end(), [&id](const auto& node) { return node->GetID() == id; }); // Task 3
 
                         // create new element if ID does not yet exist
                         if (newNode == _nodes.end())
@@ -159,12 +160,12 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                             // get iterator on incoming and outgoing node via ID search
                             auto parentNode = std::find_if(
                                 _nodes.begin(), _nodes.end(), 
-                                [&parentToken](const std::unique_ptr<GraphNode>& node) 
+                                [&parentToken](const auto& node) 
                                 { return node->GetID() == std::stoi(parentToken->second); }
-                                ); // Task 3
+                                ); // Task 3 auto expected to find node type std::unique_ptr<GraphNode>
                             auto childNode = std::find_if(
                                 _nodes.begin(), _nodes.end(), 
-                                [&childToken](const std::unique_ptr<GraphNode>& node) 
+                                [&childToken](const auto& node) 
                                 { return node->GetID() == std::stoi(childToken->second); }
                                 ); // Task 3
 
@@ -215,7 +216,7 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
 
             if (rootNode == nullptr)
             {
-                rootNode = *it; // assign current node to root
+                rootNode = it->get(); // assign current node to root // Task 3
             }
             else
             {
