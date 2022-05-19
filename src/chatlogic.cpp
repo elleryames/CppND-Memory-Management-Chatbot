@@ -227,8 +227,8 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
         }
     }
 
-    // Task 5: Create stack chatBot and set handle to ChatLogic instance 
-    ChatBot chatBot("../images/chatbot.png"); 
+    // Task 5: Create stack chatBot, pointer _chatBot, and set handle to ChatLogic instance 
+    ChatBot chatBot = ChatBot("../images/chatbot.png"); 
     *_chatBot = chatBot;
     _chatBot->SetChatLogicHandle(this);
 
