@@ -83,27 +83,27 @@ ChatBot::ChatBot(ChatBot&& source)
     source._image = NULL;
     source._chatLogic = nullptr;
     source._rootNode  = nullptr;
-    //source._currentNode = nullptr;
+
+    _chatLogic->SetChatbotHandle(this); // update chatBot location in chatLogic
 }
 
 // Move assignment operator
 ChatBot& ChatBot::operator=(ChatBot&& source)
 {
-    std::cout << "ChatBot Move Assignmetn" << std::endl;
+    std::cout << "ChatBot Move Assignment" << std::endl;
 
     if (this == &source){
         return *this;
     }
 
-    delete _image;
-
     _image = source._image;
     _chatLogic = source._chatLogic;
     _rootNode = source._rootNode;
-
     source._image = NULL;
     source._chatLogic = nullptr;
     source._rootNode  = nullptr;
+
+    _chatLogic->SetChatbotHandle(this); // update chatBot location in chatLogic
 
     return *this;
 }
