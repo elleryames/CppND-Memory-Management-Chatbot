@@ -69,8 +69,6 @@ ChatBot& ChatBot::operator=(const ChatBot& source)
         return *this;
     }
     // Redirect _image pointer to source mem on heap.
-    delete _image;
-    _image = new wxBitmap();
     *_image     = *source._image;
     _chatLogic = source._chatLogic;
     _rootNode  = source._rootNode;
