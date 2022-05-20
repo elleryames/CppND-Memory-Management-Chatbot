@@ -37,16 +37,16 @@ void GraphNode::AddEdgeToChildNode(std::unique_ptr<GraphEdge>&& edge)
 //// STUDENT CODE
 ////
 // Task 5: ownership is passed b/c this triggers use of ChatBot move constructor.
-void GraphNode::MoveChatbotHere(ChatBot&& chatbot) 
+void GraphNode::MoveChatbotHere(ChatBot chatbot) 
 {
-    _chatBot = &chatbot;
-    _chatBot->SetCurrentNode(this);
+    _chatBot = std::move(chatbot);
+    _chatBot.SetCurrentNode(this);
 }
 
 void GraphNode::MoveChatbotToNewNode(GraphNode* newNode)
 {
-    newNode->MoveChatbotHere(std::move(*_chatBot)); // Task 5
-    _chatBot = nullptr; // invalidate pointer at source
+    newNode->MoveChatbotHere(std::move(_chatBot)); // Task 5
+    //_chatBot = nullptr; // invalidate pointer at source // Task 5 _chatBot changed to object rather than pointer. 
 }
 ////
 //// EOF STUDENT CODE

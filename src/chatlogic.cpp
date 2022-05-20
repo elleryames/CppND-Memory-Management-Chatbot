@@ -229,11 +229,10 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
 
     // Task 5: Create stack chatBot, pointer _chatBot, and set handle to ChatLogic instance 
     ChatBot chatBot("../images/chatbot.png"); 
-    *_chatBot = chatBot;
-    _chatBot->SetChatLogicHandle(this);
-
+    // Task 5: use chatBot object rather than pointer.
+    chatBot.SetChatLogicHandle(this);
     // add chatbot to graph root node
-    _chatBot->SetRootNode(rootNode);
+    chatBot.SetRootNode(rootNode);
     rootNode->MoveChatbotHere(std::move(chatBot));
     
     ////
