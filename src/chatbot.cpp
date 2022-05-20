@@ -51,8 +51,7 @@ ChatBot::ChatBot(const ChatBot& source)
     std::cout << "ChatBot Copy Constructor" << std::endl;
 
     // exclusive ownership 
-    _image = new wxBitmap();
-    *_image     = *source._image;
+    _image = new wxBitmap(*source._image);
     _chatLogic = source._chatLogic;
     _rootNode  = source._rootNode;
     _currentNode = source._currentNode;
@@ -68,8 +67,8 @@ ChatBot& ChatBot::operator=(const ChatBot& source)
     if (this == &source){
         return *this;
     }
-    // Redirect _image pointer to source mem on heap.
-    *_image     = *source._image;
+    // Deep copy of source._image mem on heap.
+    _image = new wxBitmap(*source._image);
     _chatLogic = source._chatLogic;
     _rootNode  = source._rootNode;
     _currentNode = source._currentNode;
